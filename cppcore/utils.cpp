@@ -9,6 +9,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <algorithm>
+#include <iostream>
+#include<fstream>
+#include <string>
 
 namespace utils {
 
@@ -172,6 +175,27 @@ namespace utils {
 		}
 	}
 
+	namespace converter {
+		void txt2binary(std::string inFileName, std::string outFileName) {	//initial version
+			//Converting to binary 
+			std::ifstream infile;
+			infile.open(inFileName);
+			if (infile.fail()) {
+				std::cout << "File not found\n"; exit(1);
+			}
+			else {
+				std::cout << "Converting file..." << std::endl;
+			}
+			std::ofstream outfile(outFileName, std::ios_base::binary);
+			std::string buffer;
+			while (getline(infile, buffer))
+				outfile << buffer;
+			std::cout << "File Conversion Complete.." << std::endl;
+			outfile.close();
+			infile.close();
+			//--------------------------------------------------------------------
+		}
+	} //namespace converter
 } // namespace utils
 
 #if defined(_MSC_VER)

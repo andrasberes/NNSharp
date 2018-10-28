@@ -63,7 +63,9 @@ namespace utils {
 
 		return data;
 	}
-
+	namespace converter {
+		void txt2binary(std::string inFileName, std::string outFileName);
+	} // namespace converter
 } // namespace utils
 
 #if defined(_MSC_VER)
