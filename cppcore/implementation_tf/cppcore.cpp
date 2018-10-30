@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-#include<fstream>
 #include <stdio.h>
 #include <algorithm>
 #include <string>
@@ -81,7 +80,7 @@ int main(int argc, char *argv[]) {
 	//Session run
 	bool success = RunSession(graph, input_ops, input_tensors.data(), 2, &out_op, &output_tensor, 1);
 	if (success) {
-		const auto out_data = static_cast<float*>(TF_TensorData(output_tensor));
+		const auto out_data = static_cast<int32_t*>(TF_TensorData(output_tensor));
 		std::cout << "Output vals: " << out_data[0] << ", " << out_data[1] << ", " << out_data[2] << ", " << out_data[3] << std::endl;
 	} else {
 		std::cout << "Error running session";
@@ -89,7 +88,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	//Creating binary file from txt
-	//utils::converter::txt2binary("example_graph1.txt", "myExample_graph_1.pb");
+	utils::converter::txt2binary("example_graph1.txt", "myExample_graph_1.pb");
 
 	//deinit
 	DeleteTensors(input_tensors);
