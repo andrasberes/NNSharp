@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package ppGraph;
+import "attr_value.proto";
+
+message NodeDef {
+  string name = 1;
+  string op = 2;
+  repeated string input = 3;
+  map<string, AttrValue> attr = 5;
+};

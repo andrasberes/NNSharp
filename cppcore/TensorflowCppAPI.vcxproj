@@ -68,6 +68,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Dell\Desktop\onlab2\NNSharp\cppcore\protobuf-cpp-3.6.1\protobuf-3.6.1\src;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -105,19 +108,29 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;tensorflow.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Dell\Desktop\onlab2\libtensorflow-cpu-windows-x86_64-1.9.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;tensorflow.lib;libprotobuf.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Dell\Desktop\onlab2\NNSharp\cppcore\protobuf_utils\lib;C:\Users\Dell\Desktop\onlab2\libtensorflow-cpu-windows-x86_64-1.9.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Dell\Desktop\onlab2\libtensorflow-cpu-windows-x86_64-1.9.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Dell\Desktop\onlab2\NNSharp\cppcore\protobuf_utils;C:\Users\Dell\Desktop\onlab2\NNSharp\cppcore\protobuf_utils\include;C:\Users\Dell\Desktop\onlab2\libtensorflow-cpu-windows-x86_64-1.9.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="implementation_tf\cppcore.cpp" />
+    <ClCompile Include="protobuf_utils\attr_value.pb.cc" />
+    <ClCompile Include="protobuf_utils\graph.pb.cc" />
+    <ClCompile Include="protobuf_utils\node_def.pb.cc" />
+    <ClCompile Include="protobuf_utils\tensor_shape.pb.cc" />
+    <ClCompile Include="protobuf_utils\types.pb.cc" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="nnsharp.h" />
+    <ClInclude Include="protobuf_utils\attr_value.pb.h" />
+    <ClInclude Include="protobuf_utils\graph.pb.h" />
+    <ClInclude Include="protobuf_utils\node_def.pb.h" />
+    <ClInclude Include="protobuf_utils\tensor_shape.pb.h" />
+    <ClInclude Include="protobuf_utils\types.pb.h" />
     <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

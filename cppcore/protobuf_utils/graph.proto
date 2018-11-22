@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package ppGraph;
+import "node_def.proto";
+	 
+message GraphDef {
+	repeated NodeDef node = 1;
+};
+
+

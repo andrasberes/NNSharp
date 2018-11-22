@@ -1,5 +1,7 @@
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <stdio.h>
 #include <algorithm>
 #include <string>
@@ -9,8 +11,14 @@ extern "C" {
 #include "tensorflow.h"		//Tensorflow C API
 }
 #include "../utils.hpp"
-
 using namespace utils;
+
+//------------------ Generated protobuf --------------------
+#include "graph.pb.h"	//from protobuf_generated
+
+
+//GOOGLE_PROTOBUF_VERIFY_VERSION;
+
 
 int main(int argc, char *argv[]) {
 	
@@ -88,14 +96,59 @@ int main(int argc, char *argv[]) {
 	}
 
 	//Creating binary file from txt
-	utils::converter::txt2binary("example_graph1.txt", "myExample_graph_1.pb");
+	//utils::converter::txt2binary("example_graph1.txt", "myExample_graph_1.pb");
 
 	//deinit
 	DeleteTensors(input_tensors);
 	TF_DeleteGraph(graph);
 
-	
+	/*
+	//-------------------------- STRINGSTREAM -------------------------- 
+	//Use stringstream to create 
+	struct nodeProperties props{
+		"a",
+		"Placeholder"
+	};
+	addNode("output_file.txt");
+	*/
+
+
+	//-------------------------- PROTOBUF GRAPH -------------------------- 
+	// Verify that the version of the library that we linked against is
+	// compatible with the version of the headers we compiled against.
+	ppGraph::GraphDef graphDef;
+	ppGraph::NodeDef* node1 = graphDef.add_node();
+
+	std::fstream output("myGraph2.pb", std::ios::out | std::ios::trunc | std::ios::binary);
+	//if (!graphDef.SerializeToOstream(&output)) {
+	//	std::cerr << "Failed to write graphDef." << std::endl;
+	//	return -1;
+	//}
+
+
 	std::cout << "End of running" << std::endl;
 	std::getchar();
 	return 0;
 }
+
+/*
+struct nodeProperties {
+	std::string name;
+	std::string op;
+	std::vector<std::string> inputs;
+};
+
+void addNode(std::string name, struct nodeProperties props) {
+	std::stringstream ss;
+	ss << "node: {" << std::endl;
+	ss << "name: " << "\"" << props.name << "\"" << std::endl;
+	ss << "op: " << "\"" << props.op << "\"" << std::endl;
+	for (int i = 0; i < props.inputs.size(); i++) {
+		ss << "input: " << "\"" << props.inputs.at(i) << "\"" << std::endl;
+	}
+	ss << "}";
+	std::ofstream myfile;
+	myfile.open(name);
+	myfile << ss.rdbuf();
+	myfile.close();
+}*/

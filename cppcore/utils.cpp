@@ -21,7 +21,7 @@ namespace utils {
 		}
 
 		static TF_Buffer* ReadBufferFromFile(const char* file) {
-			const auto f = std::fopen(file, "rb");
+			const auto f = std::fopen(file, "r");
 			if (f == nullptr) {
 				return nullptr;
 			}
@@ -38,6 +38,10 @@ namespace utils {
 			const auto data = std::malloc(fsize);
 			std::fread(data, fsize, 1, f);
 			std::fclose(f);
+
+			/*for (int i = 0; i < fsize; i++) {
+				std::cout << data[i];
+			}*/
 
 			TF_Buffer* buf = TF_NewBuffer();
 			buf->data = data;
@@ -67,7 +71,8 @@ namespace utils {
 		TF_DeleteImportGraphDefOptions(opts);
 		TF_DeleteBuffer(buffer);
 
-		if (TF_GetCode(status) != TF_OK) {
+		TF_Code ret_code = TF_GetCode(status);
+		if (ret_code != TF_OK) {
 			TF_DeleteGraph(graph);
 			graph = nullptr;
 		}

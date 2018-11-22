@@ -1,0 +1,13 @@
+// Protocol buffer representing the shape of tensors.
+
+syntax = "proto3";
+
+package ppGraph;
+
+message TensorShapeProto {
+  message Dim {
+    int64 size = 1;
+    string name = 2;
+  };
+  repeated Dim dim = 2;
+};
